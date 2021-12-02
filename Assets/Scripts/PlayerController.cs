@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
-
+    private float jumpForce = 500;
     private Rigidbody rb;
     private int count;
     private float movementX;
@@ -59,5 +59,10 @@ public class PlayerController : MonoBehaviour
 
             SetCountText();
         }
+    }
+
+    void OnJump ()
+    {
+        rb.AddForce(new Vector3(0, jumpForce, 0));
     }
 }
