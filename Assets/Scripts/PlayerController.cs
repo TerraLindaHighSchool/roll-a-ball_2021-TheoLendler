@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public GameObject titleText;
     private float jumpForce = 500;
     private Rigidbody rb;
     private int count;
@@ -46,6 +47,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        if (movementX > 0 || movementY > 0)
+        {
+            titleText.SetActive(false);
+        }
 
         rb.AddForce(movement * speed);
     }
@@ -64,5 +69,6 @@ public class PlayerController : MonoBehaviour
     void OnJump ()
     {
         rb.AddForce(new Vector3(0, jumpForce, 0));
+        titleText.SetActive(false);
     }
 }
