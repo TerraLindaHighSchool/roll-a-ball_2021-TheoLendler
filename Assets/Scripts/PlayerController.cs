@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     public GameObject titleText;
     private float jumpForce = 500;
+    public bool inAir = false;
     private Rigidbody rb;
     private int count;
     private float movementX;
     private float movementY;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,18 @@ public class PlayerController : MonoBehaviour
 
         movementX = movementVector.x;
         movementY = movementVector.y;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "GroundObject")
+            inAir = false;
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "GroundObject")
+            inAir = true;
     }
 
     void SetCountText()
@@ -66,9 +80,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnJump ()
+    void OnJump()
     {
-        rb.AddForce(new Vector3(0, jumpForce, 0));
         titleText.SetActive(false);
+         
+        if (!inAir)
+        {
+            rb.AddForce(new Vector3(0, jumpForce, 0));
+        }
     }
 }
