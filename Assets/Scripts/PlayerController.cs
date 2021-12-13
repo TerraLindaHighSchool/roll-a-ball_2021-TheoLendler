@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
+    private Vector3 spawnPoint;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
+        spawnPoint = transform.position;
     }
 
     void OnMove(InputValue movementValue)
@@ -67,6 +69,11 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.AddForce(movement * speed);
+
+        if(gameObject.transform.position.y<-10)
+        {
+            gameObject.transform.position = spawnPoint;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
