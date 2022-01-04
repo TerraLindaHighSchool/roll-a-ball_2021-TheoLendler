@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
     private Vector3 spawnPoint;
+    public AudioSource collect;
     
     // Start is called before the first frame update
     void Start()
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        if (movementX > 0 || movementY > 0)
+        if (movementX > 0 || movementY > 0 || movementX < 0 || movementY < 0)
         {
             titleText.SetActive(false);
         }
@@ -84,6 +85,11 @@ public class PlayerController : MonoBehaviour
             count = count + 1;
 
             SetCountText();
+
+            if (count >= 1)
+            {
+                collect.Play();
+            }
         }
     }
 
